@@ -22,7 +22,7 @@ export default function Home() {
                     content="M7TWS Amateur Radio | HF VHF Operations | Satellite Reception"
                     name="description"
                 />
-                <link href="/favicon.ico" rel="icon" />
+                <link href="/favicon.ico" rel="icon" type="image/icon type" />
             </Head>
 
             <Header />
@@ -112,7 +112,7 @@ export default function Home() {
                         <DynamicGrid>
                             <ProjectCard altTxt="" imgSrc="">
                                 <CardTitle>{'NOAA Satellite image'}</CardTitle>
-                                <CardButton href="/wx-captures">
+                                <CardButton linkTo="/wx-captures">
                                     {'Open NOAA Gallery'}
                                 </CardButton>
                             </ProjectCard>
