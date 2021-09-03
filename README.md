@@ -1,5 +1,8 @@
-# React - Next - Tailwind - DaisyUI - ESLint - Prettier
-Template repository containing some of the components I use.
+# https://m7tws.redfox0x20.xyz/
+
+Source repository for the [https://m7tws.RedFox0x20.xyz](https://m7tws.redfox0x20.xyz) webpage.
+
+Featuring NOAA APT Satellite imagery! [https://m7tws.RedFox0x20.xyz/wx-captures](https://m7tws.redfox0x20.xyz/wx-captures)
 
 ## Technologies
 - NodeJS
