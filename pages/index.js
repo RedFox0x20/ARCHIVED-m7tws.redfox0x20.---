@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 
 import { CardButton, CardTitle, ProjectCard } from '../components/cards';
 import {
@@ -11,7 +12,6 @@ import {
 import DynamicGrid from '../components/dynamicgrid';
 import Footer from '../components/footer';
 import Header from '../components/header';
-import Link from 'next/link';
 
 export default function Home() {
     return (
