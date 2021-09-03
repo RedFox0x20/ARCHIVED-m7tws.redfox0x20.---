@@ -57,7 +57,10 @@ export default function wxcaptures() {
                             }
                         </SectionDescription>
                         <DynamicGrid>
-                            {ImageList.map((item) => {
+                            {ImageList.map((item, idx) => {
+                                if (idx > 18) {
+                                    return;
+                                }
                                 const src = item.default.src;
                                 const ThumbnailPath = `${
                                     src.split('/')[6].split('.')[0]
