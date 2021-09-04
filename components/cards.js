@@ -31,7 +31,7 @@ export function CardDescription({ children }) {
     return <p className="flex-grow text-center">{children}</p>;
 }
 
-export function CardButton({ target="_self", linkTo, children }) {
+export function CardButton({ target = '_self', linkTo, children }) {
     return (
         <a
             className="btn mt-5 h-auto xl:h-12"
