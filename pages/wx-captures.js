@@ -109,6 +109,7 @@ export default function wxcaptures() {
                                         </CardDescription>
                                         <CardButton
                                             linkTo={`/wx-captures/${FullImagePath}`}
+                                            target="_blank"
                                         >
                                             {'View full image'}
                                         </CardButton>
