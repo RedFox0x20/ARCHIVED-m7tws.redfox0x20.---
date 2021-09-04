@@ -38,7 +38,7 @@ const ModeTranslation = {
     contrasta: 'Contrast A',
     contrastb: 'Contrast B',
     no: 'NO',
-    hvct: 'HVCT'
+    hvct: 'HVCT',
 };
 
 const DirectionTranslation = {
