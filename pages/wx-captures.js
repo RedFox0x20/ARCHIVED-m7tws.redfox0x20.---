@@ -29,9 +29,16 @@ const ImageList = importAll(
 
 const ModeTranslation = {
     mcir: 'MCIR',
+    mcirprecip: 'MCIR Precipitation',
     msa: 'MSA',
     msaprecip: 'MSA Precipitation',
     pris: 'Pristine',
+    norm: 'Normal',
+    contrast: 'Contrast',
+    contrasta: 'Contrast A',
+    contrastb: 'Contrast B',
+    no: 'NO',
+    hvct: 'HVCT'
 };
 
 const DirectionTranslation = {
@@ -91,7 +98,7 @@ export default function wxcaptures() {
                                         ThumbnailPath.split('-')[10]
                                     ];
                                 const Mode =
-                                    ThumbnailPath.split('-')[10] == undefined
+                                    ThumbnailPath.split('-')[11] === undefined
                                         ? ModeTranslation[
                                               ThumbnailPath.split('-')[8]
                                           ]
