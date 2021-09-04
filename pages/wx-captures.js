@@ -23,12 +23,17 @@ function importAll(r) {
 
 const ImageList = importAll(
     require.context('../public/wx-captures/', false, /\.(jpe?g)$/)
-).reverse();
+).sort((ImgA, ImgB) => ImgA.default.src - ImgB.default.src).reverse();
 
 const ModeTranslation = {
     mcir: 'MCIR',
     msa: 'MSA',
     pris: 'Pristine',
+};
+
+const DirectionTranslation = {
+    'northbound': 'Northbound',
+    'southbound': 'Southbound'
 };
 
 export default function wxcaptures() {
@@ -62,33 +67,23 @@ export default function wxcaptures() {
                                     return;
                                 }
                                 const src = item.default.src;
-                                const ThumbnailPath = `${
-                                    src.split('/')[6].split('.')[0]
-                                }.jpg`;
+                                const ThumbnailPath = `${src.split('/')[6].split('.')[0]
+                                    }.jpg`;
                                 if (ThumbnailPath.endsWith('thumb.jpg')) {
                                     const FullImagePath = ThumbnailPath.replace(
                                         '-thumb',
                                         ''
                                     );
-                                    const Satellite = ThumbnailPath.substring(
-                                        0,
-                                        7
-                                    ).toUpperCase();
-                                    const DateTime =
-                                        ThumbnailPath.split('-')[2];
-                                    const Day = DateTime.substr(2, 2);
-                                    const Month = DateTime.substr(0, 2);
-                                    const Time = `${DateTime.substr(
-                                        4,
-                                        2
-                                    )}:${DateTime.substr(6, 7)}`;
-                                    const Mode =
-                                        ModeTranslation[
-                                            ThumbnailPath.split('-')[3]
-                                        ];
+                                    const Date = ThumbnailPath.substr(0,10).replace('-', '/').replace('-', '/');
+                                    const Time = ThumbnailPath.substr(11, 5).replace('-', ':');
+                                    const Satellite = ThumbnailPath.substr(17, 7);
+                                    const Degree = ThumbnailPath.substr(25, 2);
+                                    const Direction = DirectionTranslation[ThumbnailPath.split('-')[9]];
+                                    const Mode = ModeTranslation[ThumbnailPath.split('-')[8]];
 
                                     return (
                                         <ProjectCard
+                                        key={Date + Time + Satellite + Mode}
                                             altTxt=""
                                             imgSrc={`/wx-captures/${ThumbnailPath}`}
                                         >
@@ -97,8 +92,9 @@ export default function wxcaptures() {
                                                 {Mode}
                                             </CardDescription>
                                             <CardDescription>
-                                                {`${Day}/${Month} @ ${Time} UTC`}
+                                                {`${Date} @ ${Time} UTC`}
                                             </CardDescription>
+                                            <CardDescription>{'Maximum elevation: ' + Degree + '° ' + Direction}</CardDescription>
                                             <CardButton
                                                 linkTo={`/wx-captures/${FullImagePath}`}
                                             >
