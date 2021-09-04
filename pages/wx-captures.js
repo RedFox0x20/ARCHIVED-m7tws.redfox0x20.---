@@ -23,7 +23,9 @@ function importAll(r) {
 
 const ImageList = importAll(
     require.context('../public/wx-captures/', false, /\.(jpe?g)$/)
-).sort((ImgA, ImgB) => ImgA.default.src - ImgB.default.src).reverse();
+)
+    .sort((ImgA, ImgB) => ImgA.default.src - ImgB.default.src)
+    .reverse();
 
 const ModeTranslation = {
     mcir: 'MCIR',
@@ -32,8 +34,8 @@ const ModeTranslation = {
 };
 
 const DirectionTranslation = {
-    'northbound': 'Northbound',
-    'southbound': 'Southbound'
+    northbound: 'Northbound',
+    southbound: 'Southbound',
 };
 
 export default function wxcaptures() {
@@ -67,25 +69,40 @@ export default function wxcaptures() {
                                     return;
                                 }
                                 const src = item.default.src;
-                                const ThumbnailPath = `${src.split('/')[6].split('.')[0]
-                                    }.jpg`;
+                                const ThumbnailPath = `${
+                                    src.split('/')[6].split('.')[0]
+                                }.jpg`;
                                 if (ThumbnailPath.endsWith('thumb.jpg')) {
                                     const FullImagePath = ThumbnailPath.replace(
                                         '-thumb',
                                         ''
                                     );
-                                    const Date = ThumbnailPath.substr(0,10).replace('-', '/').replace('-', '/');
-                                    const Time = ThumbnailPath.substr(11, 5).replace('-', ':');
-                                    const Satellite = ThumbnailPath.substr(17, 7);
+                                    const Date = ThumbnailPath.substr(0, 10)
+                                        .replace('-', '/')
+                                        .replace('-', '/');
+                                    const Time = ThumbnailPath.substr(
+                                        11,
+                                        5
+                                    ).replace('-', ':');
+                                    const Satellite = ThumbnailPath.substr(
+                                        17,
+                                        7
+                                    );
                                     const Degree = ThumbnailPath.substr(25, 2);
-                                    const Direction = DirectionTranslation[ThumbnailPath.split('-')[9]];
-                                    const Mode = ModeTranslation[ThumbnailPath.split('-')[8]];
+                                    const Direction =
+                                        DirectionTranslation[
+                                            ThumbnailPath.split('-')[9]
+                                        ];
+                                    const Mode =
+                                        ModeTranslation[
+                                            ThumbnailPath.split('-')[8]
+                                        ];
 
                                     return (
                                         <ProjectCard
-                                        key={Date + Time + Satellite + Mode}
                                             altTxt=""
                                             imgSrc={`/wx-captures/${ThumbnailPath}`}
+                                            key={Date + Time + Satellite + Mode}
                                         >
                                             <CardTitle>{Satellite}</CardTitle>
                                             <CardDescription>
@@ -94,7 +111,9 @@ export default function wxcaptures() {
                                             <CardDescription>
                                                 {`${Date} @ ${Time} UTC`}
                                             </CardDescription>
-                                            <CardDescription>{'Maximum elevation: ' + Degree + '° ' + Direction}</CardDescription>
+                                            <CardDescription>
+                                                {`Maximum elevation: ${Degree}° ${Direction}`}
+                                            </CardDescription>
                                             <CardButton
                                                 linkTo={`/wx-captures/${FullImagePath}`}
                                             >
