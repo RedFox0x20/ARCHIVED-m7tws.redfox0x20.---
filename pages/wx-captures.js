@@ -30,6 +30,7 @@ const ImageList = importAll(
 const ModeTranslation = {
     mcir: 'MCIR',
     msa: 'MSA',
+    msaprecip: 'MSA Precipitation',
     pris: 'Pristine',
 };
 
@@ -85,11 +86,19 @@ export default function wxcaptures() {
                                 const Direction =
                                     DirectionTranslation[
                                         ThumbnailPath.split('-')[9]
+                                    ] ||
+                                    DirectionTranslation[
+                                        ThumbnailPath.split('-')[10]
                                     ];
                                 const Mode =
-                                    ModeTranslation[
-                                        ThumbnailPath.split('-')[8]
-                                    ];
+                                    ThumbnailPath.split('-')[10] == undefined
+                                        ? ModeTranslation[
+                                              ThumbnailPath.split('-')[8]
+                                          ]
+                                        : ModeTranslation[
+                                              ThumbnailPath.split('-')[8] +
+                                                  ThumbnailPath.split('-')[9]
+                                          ];
 
                                 return (
                                     <ProjectCard
