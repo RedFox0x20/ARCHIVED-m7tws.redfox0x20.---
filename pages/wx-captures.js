@@ -42,7 +42,7 @@ export default function wxcaptures() {
     return (
         <div>
             <Head>
-                <title>{'M7TWS'}</title>
+                <title>{'M7TWS | NOAA Gallery'}</title>
                 <meta
                     content="M7TWS Amateur Radio | HF VHF Operations | Satellite Reception"
                     name="description"
