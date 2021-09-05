@@ -24,9 +24,9 @@ export default function Header() {
                                 key={index.toString()}
                                 passHref
                             >
-                                <span className="btn btn-ghost btn-sm rounded-btn">
+                                <a className="btn btn-ghost btn-sm rounded-btn">
                                     {item.text}
-                                </span>
+                                </a>
                             </Link>
                         );
                     })}
