@@ -94,16 +94,16 @@ const ImageSections = [
 ];
 
 function SatelliteSections() {
-    return ImageSections.map((Section, idx) => {
+    return ImageSections.map((Section, section_idx) => {
         return (
-            <CollapseToggle key={idx.toString()} title={Section.title}>
+            <CollapseToggle key={section_idx.toString()} title={Section.title}>
                 <DynamicGrid>
-                    {Section.images.map((ImageData, idx) => {
+                    {Section.images.map((ImageData, image_idx) => {
                         return (
                             <ProjectCard
                                 altTxt=""
                                 imgSrc={`/wx-captures/${ImageData.Thumbnail}`}
-                                key={idx.toString()}
+                                key={image_idx.toString()}
                             >
                                 <CardDescription>
                                     {ImageData.Mode}
