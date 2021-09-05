@@ -147,7 +147,9 @@ export default function NOAA_Gallery() {
                     <SectionContent>
                         <div className="flex">
                             <SectionDescription>
-                                {'Captured on a NooElec V4 SDR with a Dipole Antenna using WxToImg Restored'}
+                                {
+                                    'Captured on a NooElec V4 SDR with a Dipole Antenna using WxToImg Restored'
+                                }
                             </SectionDescription>
                             <div className="hidden xl:tabs m-auto mr-0">
                                 {listMode == 'Latest' ? (
