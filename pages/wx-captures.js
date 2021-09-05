@@ -8,10 +8,10 @@ import {
     SectionDescription,
     SectionTitle,
 } from '../components/sections';
+import { CollapseToggle } from '../components/collapse';
 import DynamicGrid from '../components/dynamicgrid';
 import Footer from '../components/footer';
 import Header from '../components/header';
-import { CollapseToggle } from '../components/collapse';
 
 const ModeTranslation = {
     mcir: 'MCIR',
@@ -69,7 +69,7 @@ function DeconstructImageImports(Images) {
     });
 }
 
-function ImageCard({ ImageData, children }) {
+function ImageCard({ ImageData }) {
     return (
         <ProjectCard altTxt="" imgSrc={`/wx-captures/${ImageData.Thumbnail}`}>
             <CardDescription>{ImageData.Mode}</CardDescription>
@@ -132,22 +132,37 @@ export default function wxcaptures() {
                         </SectionDescription>
                         <CollapseToggle title="NOAA-19 - Latest">
                             <DynamicGrid>
-                                {NOAA19_Images.map((img) => {
-                                    return <ImageCard ImageData={img} />;
+                                {NOAA19_Images.map((img, idx) => {
+                                    return (
+                                        <ImageCard
+                                            ImageData={img}
+                                            key={idx.toString()}
+                                        />
+                                    );
                                 })}
                             </DynamicGrid>
                         </CollapseToggle>
                         <CollapseToggle title="NOAA-18 - Latest">
                             <DynamicGrid>
-                                {NOAA18_Images.map((img) => {
-                                    return <ImageCard ImageData={img} />;
+                                {NOAA18_Images.map((img, idx) => {
+                                    return (
+                                        <ImageCard
+                                            ImageData={img}
+                                            key={idx.toString()}
+                                        />
+                                    );
                                 })}
                             </DynamicGrid>
                         </CollapseToggle>
                         <CollapseToggle title="NOAA-15 - Latest">
                             <DynamicGrid>
-                                {NOAA15_Images.map((img) => {
-                                    return <ImageCard ImageData={img} />;
+                                {NOAA15_Images.map((img, idx) => {
+                                    return (
+                                        <ImageCard
+                                            ImageData={img}
+                                            key={idx.toString()}
+                                        />
+                                    );
                                 })}
                             </DynamicGrid>
                         </CollapseToggle>
