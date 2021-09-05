@@ -121,8 +121,12 @@ const CombinedImageLists = DeconstructImageImports(ImageList);
 
 export default function NOAA_Gallery() {
     const [listMode, setListMode] = useState('Latest');
-    function setListMode_Latest() { setListMode('Latest'); }
-    function setListMode_History() { setListMode('History') }
+    function setListMode_Latest() {
+        setListMode('Latest');
+    }
+    function setListMode_History() {
+        setListMode('History');
+    }
     return (
         <div>
             <Head>
@@ -154,7 +158,7 @@ export default function NOAA_Gallery() {
                                 }
                             </SectionDescription>
                             <div className="hidden xl:tabs m-auto mr-0">
-                                {listMode == 'Latest' ? (
+                                {listMode === 'Latest' ? (
                                     <>
                                         <a
                                             className="tab tab-active"
@@ -187,7 +191,7 @@ export default function NOAA_Gallery() {
                                 )}
                             </div>
                         </div>
-                        {listMode == 'Latest' &&
+                        {listMode === 'Latest' &&
                             ImageSections.map((Section, idx) => {
                                 return (
                                     <CollapseToggle
@@ -207,7 +211,7 @@ export default function NOAA_Gallery() {
                                     </CollapseToggle>
                                 );
                             })}
-                        {listMode == 'History' && (
+                        {listMode === 'History' && (
                             <table className="table w-full">
                                 <thead>
                                     <tr>
