@@ -121,6 +121,8 @@ const CombinedImageLists = DeconstructImageImports(ImageList);
 
 export default function NOAA_Gallery() {
     const [listMode, setListMode] = useState('Latest');
+    function setListMode_Latest() { setListMode('Latest'); }
+    function setListMode_History() { setListMode('History') }
     return (
         <div>
             <Head>
@@ -156,17 +158,13 @@ export default function NOAA_Gallery() {
                                     <>
                                         <a
                                             className="tab tab-active"
-                                            onClick={() =>
-                                                setListMode('Latest')
-                                            }
+                                            onClick={setListMode_Latest}
                                         >
                                             {'Latest'}
                                         </a>
                                         <a
                                             className="tab"
-                                            onClick={() =>
-                                                setListMode('History')
-                                            }
+                                            onClick={setListMode_History}
                                         >
                                             {'History'}
                                         </a>
@@ -175,17 +173,13 @@ export default function NOAA_Gallery() {
                                     <>
                                         <a
                                             className="tab"
-                                            onClick={() =>
-                                                setListMode('Latest')
-                                            }
+                                            onClick={setListMode_Latest}
                                         >
                                             {'Latest'}
                                         </a>
                                         <a
                                             className="tab tab-active"
-                                            onClick={() =>
-                                                setListMode('History')
-                                            }
+                                            onClick={setListMode_History}
                                         >
                                             {'History'}
                                         </a>
