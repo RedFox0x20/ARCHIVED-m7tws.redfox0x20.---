@@ -111,7 +111,9 @@ export default function Home() {
                         </SectionDescription>
                         <DynamicGrid>
                             <ProjectCard altTxt="" imgSrc="">
-                                <CardTitle>{'NOAA Satellite Gallery'}</CardTitle>
+                                <CardTitle>
+                                    {'NOAA Satellite Gallery'}
+                                </CardTitle>
                                 <CardButton linkTo="/wx-captures">
                                     {'Open NOAA Gallery'}
                                 </CardButton>
