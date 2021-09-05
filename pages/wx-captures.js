@@ -33,16 +33,6 @@ const DirectionTranslation = {
     southbound: 'Southbound',
 };
 
-function importAll(r) {
-    return r.keys().map(r);
-}
-
-const ImageList = importAll(
-    require.context('../public/wx-captures/', false, /-thumb\.(jpe?g)$/)
-)
-    .sort((ImgA, ImgB) => ImgA.default.src - ImgB.default.src)
-    .reverse();
-
 function DeconstructImageImports(Images) {
     return Images.map((item) => {
         const { src } = item.default;
@@ -70,54 +60,114 @@ function DeconstructImageImports(Images) {
     });
 }
 
-function ImageCard({ ImageData }) {
-    return (
-        <ProjectCard altTxt="" imgSrc={`/wx-captures/${ImageData.Thumbnail}`}>
-            <CardDescription>{ImageData.Mode}</CardDescription>
-            <CardDescription>
-                {`${ImageData.Date} @ ${ImageData.Time} UTC`}
-            </CardDescription>
-            <CardDescription>
-                {`Maximum elevation: ${ImageData.Degree}° ${ImageData.Direction}`}
-            </CardDescription>
-            <CardButton
-                linkTo={`/wx-captures/${ImageData.FullImage}`}
-                target="_blank"
-            >
-                {'View full image'}
-            </CardButton>
-        </ProjectCard>
-    );
+function importAll(r) {
+    return r.keys().map(r);
 }
+
+const ImageList = DeconstructImageImports(
+    importAll(
+        require.context('../public/wx-captures/', false, /-thumb\.(jpe?g)$/)
+    )
+)
+    .sort((ImgA, ImgB) => ImgA.Thumbnail - ImgB.Thumbnail)
+    .reverse();
 
 const ImageSections = [
     {
         title: 'NOAA 19 - Latest',
-        images: DeconstructImageImports(
-            ImageList.filter((obj) => {
-                return obj.default.src.includes('NOAA-19');
-            })
-        ).slice(0, 9),
+        images: ImageList.filter((img) => {
+            return img.Thumbnail.includes('NOAA-19');
+        }).slice(0, 9),
     },
     {
         title: 'NOAA 18 - Latest',
-        images: DeconstructImageImports(
-            ImageList.filter((obj) => {
-                return obj.default.src.includes('NOAA-18');
-            })
-        ).slice(0, 9),
+        images: ImageList.filter((img) => {
+            return img.Thumbnail.includes('NOAA-18');
+        }).slice(0, 9),
     },
     {
         title: 'NOAA 15 - Latest',
-        images: DeconstructImageImports(
-            ImageList.filter((obj) => {
-                return obj.default.src.includes('NOAA-15');
-            })
-        ).slice(0, 9),
+        images: ImageList.filter((img) => {
+            return img.Thumbnail.includes('NOAA-15');
+        }).slice(0, 9),
     },
 ];
 
-const CombinedImageLists = DeconstructImageImports(ImageList);
+function SatelliteSections() {
+    return ImageSections.map((Section, idx) => {
+        return (
+            <CollapseToggle key={idx.toString()} title={Section.title}>
+                <DynamicGrid>
+                    {Section.images.map((ImageData, idx) => {
+                        return (
+                            <ProjectCard
+                                altTxt=""
+                                imgSrc={`/wx-captures/${ImageData.Thumbnail}`}
+                                key={idx.toString()}
+                            >
+                                <CardDescription>
+                                    {ImageData.Mode}
+                                </CardDescription>
+                                <CardDescription>
+                                    {`${ImageData.Date} @ ${ImageData.Time} UTC`}
+                                </CardDescription>
+                                <CardDescription>
+                                    {`Maximum elevation: ${ImageData.Degree}° ${ImageData.Direction}`}
+                                </CardDescription>
+                                <CardButton
+                                    linkTo={`/wx-captures/${ImageData.FullImage}`}
+                                    target="_blank"
+                                >
+                                    {'View full image'}
+                                </CardButton>
+                            </ProjectCard>
+                        );
+                    })}
+                </DynamicGrid>
+            </CollapseToggle>
+        );
+    });
+}
+
+function HistoryTable() {
+    return (
+        <table className="table w-full">
+            <thead>
+                <tr>
+                    <th>{'Date @ Time'}</th>
+                    <th>{'Satellite'}</th>
+                    <th>{'Mode'}</th>
+                    <th>{'Position'}</th>
+                    <th>{'Direction'}</th>
+                    <th />
+                </tr>
+            </thead>
+            <tbody>
+                {ImageList.map((Img, idx) => {
+                    return (
+                        <tr key={idx.toString()}>
+                            <td>{`${Img.Date} @ ${Img.Time}`}</td>
+                            <td>{Img.Satellite}</td>
+                            <td>{Img.Mode}</td>
+                            <td>{`Maximum elevation: ${Img.Degree}°`}</td>
+                            <td>{Img.Direction}</td>
+                            <td>
+                                <a
+                                    className="btn"
+                                    href={`/wx-captures/${Img.FullImage}`}
+                                    rel="noreferrer"
+                                    target="_blank"
+                                >
+                                    {'View image'}
+                                </a>
+                            </td>
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </table>
+    );
+}
 
 export default function NOAA_Gallery() {
     const [listMode, setListMode] = useState('Latest');
@@ -191,63 +241,8 @@ export default function NOAA_Gallery() {
                                 )}
                             </div>
                         </div>
-                        {listMode === 'Latest' &&
-                            ImageSections.map((Section, idx) => {
-                                return (
-                                    <CollapseToggle
-                                        key={idx.toString()}
-                                        title={Section.title}
-                                    >
-                                        <DynamicGrid>
-                                            {Section.images.map((img, idx) => {
-                                                return (
-                                                    <ImageCard
-                                                        ImageData={img}
-                                                        key={idx.toString()}
-                                                    />
-                                                );
-                                            })}
-                                        </DynamicGrid>
-                                    </CollapseToggle>
-                                );
-                            })}
-                        {listMode === 'History' && (
-                            <table className="table w-full">
-                                <thead>
-                                    <tr>
-                                        <th>{'Date @ Time'}</th>
-                                        <th>{'Satellite'}</th>
-                                        <th>{'Mode'}</th>
-                                        <th>{'Position'}</th>
-                                        <th>{'Direction'}</th>
-                                        <th />
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {CombinedImageLists.map((Img, idx) => {
-                                        return (
-                                            <tr key={idx.toString()}>
-                                                <td>{`${Img.Date} @ ${Img.Time}`}</td>
-                                                <td>{Img.Satellite}</td>
-                                                <td>{Img.Mode}</td>
-                                                <td>{`Maximum elevation: ${Img.Degree}°`}</td>
-                                                <td>{Img.Direction}</td>
-                                                <td>
-                                                    <a
-                                                        className="btn"
-                                                        href={`/wx-captures/${Img.FullImage}`}
-                                                        rel="noreferrer"
-                                                        target="_blank"
-                                                    >
-                                                        {'View image'}
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        )}
+                        {listMode === 'Latest' && <SatelliteSections />}
+                        {listMode === 'History' && <HistoryTable />}
                     </SectionContent>
                 </ContentSection>
             </MainSection>
