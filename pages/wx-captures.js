@@ -45,7 +45,7 @@ const ImageList = importAll(
 
 function DeconstructImageImports(Images) {
     return Images.map((item) => {
-        const src = item.default.src;
+        const { src } = item.default;
         const ThumbnailPath = `${src.split('/')[6].split('.')[0]}.jpg`;
         return {
             Thumbnail: ThumbnailPath,
