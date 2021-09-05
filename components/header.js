@@ -10,13 +10,13 @@ const NavbarLinks = [
 export default function Header() {
     return (
         <div className="navbar mb-2 shadow-lg bg-neutral text-neutral-content lg:sticky lg:top-0 lg:z-50 drop-shadow-2xl">
-            <div className="flex-none px-2 mx-2">
+            <div className="hidden md:flex-none px-2 mx-2">
                 <span className="text-lg font-bold">
                     {'RedFox0x20 | M7TWS'}
                 </span>
             </div>
-            <div className="flex-1 px-2 mx-2">
-                <div className="items-stretch hidden md:flex">
+            <div className="flex-1 px-2 m-auto sm:mx-2">
+                <div className="items-stretch flex">
                     {NavbarLinks.map((item, index) => {
                         return (
                             <Link

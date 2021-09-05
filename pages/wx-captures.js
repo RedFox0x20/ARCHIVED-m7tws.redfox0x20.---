@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Head from 'next/head';
 
 import { CardButton, CardDescription, ProjectCard } from '../components/cards';
@@ -89,23 +90,37 @@ function ImageCard({ ImageData }) {
     );
 }
 
-const NOAA19_Images = DeconstructImageImports(
-    ImageList.filter((obj) => {
-        return obj.default.src.includes('NOAA-19');
-    })
-).slice(0, 9);
-const NOAA18_Images = DeconstructImageImports(
-    ImageList.filter((obj) => {
-        return obj.default.src.includes('NOAA-18');
-    })
-).slice(0, 9);
-const NOAA15_Images = DeconstructImageImports(
-    ImageList.filter((obj) => {
-        return obj.default.src.includes('NOAA-15');
-    })
-).slice(0, 9);
+const ImageSections = [
+    {
+        title: 'NOAA 19 - Latest',
+        images: DeconstructImageImports(
+            ImageList.filter((obj) => {
+                return obj.default.src.includes('NOAA-19');
+            })
+        ).slice(0, 9),
+    },
+    {
+        title: 'NOAA 18 - Latest',
+        images: DeconstructImageImports(
+            ImageList.filter((obj) => {
+                return obj.default.src.includes('NOAA-18');
+            })
+        ).slice(0, 9),
+    },
+    {
+        title: 'NOAA 15 - Latest',
+        images: DeconstructImageImports(
+            ImageList.filter((obj) => {
+                return obj.default.src.includes('NOAA-15');
+            })
+        ).slice(0, 9),
+    },
+];
 
-export default function wxcaptures() {
+const CombinedImageLists = DeconstructImageImports(ImageList);
+
+export default function NOAA_Gallery() {
+    const [listMode, setListMode] = useState('Latest');
     return (
         <div>
             <Head>
@@ -124,48 +139,115 @@ export default function wxcaptures() {
                     <SectionTitle>
                         {'M7TWS - NOAA Satellite Gallery'}
                     </SectionTitle>
+                    <noscript>
+                        <h1>
+                            {'JavaScript must be enabled to view this page'}
+                        </h1>
+                    </noscript>
                     <SectionContent>
-                        <SectionDescription>
-                            {
-                                'A gallery of all of my NOAA APT captures, this section is a WIP.'
-                            }
-                        </SectionDescription>
-                        <CollapseToggle title="NOAA-19 - Latest">
-                            <DynamicGrid>
-                                {NOAA19_Images.map((img, idx) => {
-                                    return (
-                                        <ImageCard
-                                            ImageData={img}
-                                            key={idx.toString()}
-                                        />
-                                    );
-                                })}
-                            </DynamicGrid>
-                        </CollapseToggle>
-                        <CollapseToggle title="NOAA-18 - Latest">
-                            <DynamicGrid>
-                                {NOAA18_Images.map((img, idx) => {
-                                    return (
-                                        <ImageCard
-                                            ImageData={img}
-                                            key={idx.toString()}
-                                        />
-                                    );
-                                })}
-                            </DynamicGrid>
-                        </CollapseToggle>
-                        <CollapseToggle title="NOAA-15 - Latest">
-                            <DynamicGrid>
-                                {NOAA15_Images.map((img, idx) => {
-                                    return (
-                                        <ImageCard
-                                            ImageData={img}
-                                            key={idx.toString()}
-                                        />
-                                    );
-                                })}
-                            </DynamicGrid>
-                        </CollapseToggle>
+                        <div className="flex">
+                            <SectionDescription>
+                                {'Captured on a NooElec V4 SDR with a Dipole Antenna using WxToImg Restored'}
+                            </SectionDescription>
+                            <div className="hidden xl:tabs m-auto mr-0">
+                                {listMode == 'Latest' ? (
+                                    <>
+                                        <a
+                                            className="tab tab-active"
+                                            onClick={() =>
+                                                setListMode('Latest')
+                                            }
+                                        >
+                                            {'Latest'}
+                                        </a>
+                                        <a
+                                            className="tab"
+                                            onClick={() =>
+                                                setListMode('History')
+                                            }
+                                        >
+                                            {'History'}
+                                        </a>
+                                    </>
+                                ) : (
+                                    <>
+                                        <a
+                                            className="tab"
+                                            onClick={() =>
+                                                setListMode('Latest')
+                                            }
+                                        >
+                                            {'Latest'}
+                                        </a>
+                                        <a
+                                            className="tab tab-active"
+                                            onClick={() =>
+                                                setListMode('History')
+                                            }
+                                        >
+                                            {'History'}
+                                        </a>
+                                    </>
+                                )}
+                            </div>
+                        </div>
+                        {listMode == 'Latest' &&
+                            ImageSections.map((Section, idx) => {
+                                return (
+                                    <CollapseToggle
+                                        key={idx.toString()}
+                                        title={Section.title}
+                                    >
+                                        <DynamicGrid>
+                                            {Section.images.map((img, idx) => {
+                                                return (
+                                                    <ImageCard
+                                                        ImageData={img}
+                                                        key={idx.toString()}
+                                                    />
+                                                );
+                                            })}
+                                        </DynamicGrid>
+                                    </CollapseToggle>
+                                );
+                            })}
+                        {listMode == 'History' && (
+                            <table className="table w-full">
+                                <thead>
+                                    <tr>
+                                        <th>{'Date @ Time'}</th>
+                                        <th>{'Satellite'}</th>
+                                        <th>{'Mode'}</th>
+                                        <th>{'Position'}</th>
+                                        <th>{'Direction'}</th>
+                                        <th />
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {CombinedImageLists.map((Img, idx) => {
+                                        return (
+                                            <tr key={idx.toString()}>
+                                                <td>{`${Img.Date} @ ${Img.Time}`}</td>
+                                                <td>{Img.Satellite}</td>
+                                                <td>{Img.Mode}</td>
+                                                <td>{`Maximum elevation: ${Img.Degree}°`}</td>
+                                                <td>{Img.Direction}</td>
+                                                <td>
+                                                    <a
+                                                        className="btn"
+                                                        href={`/wx-captures/${Img.FullImage}`}
+                                                        rel="noreferrer"
+                                                        target="_blank"
+                                                    >
+                                                        {'View image'}
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                        )}
                     </SectionContent>
                 </ContentSection>
             </MainSection>
