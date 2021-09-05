@@ -60,7 +60,7 @@ function DeconstructImageImports(Images) {
                 DirectionTranslation[ThumbnailPath.split('-')[9]] ||
                 DirectionTranslation[ThumbnailPath.split('-')[10]],
             Mode:
-                ThumbnailPath.split('-')[11] === undefined
+                typeof ThumbnailPath.split('-')[11] === 'undefined'
                     ? ModeTranslation[ThumbnailPath.split('-')[8]]
                     : ModeTranslation[
                           ThumbnailPath.split('-')[8] +
