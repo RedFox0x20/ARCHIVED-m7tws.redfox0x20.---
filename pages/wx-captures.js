@@ -197,7 +197,9 @@ export default function NOAA_Gallery() {
                     </SectionTitle>
                     <noscript>
                         <h1>
-                            {'JavaScript must be enabled to view this page'}
+                            {
+                                'JavaScript must be enabled to view this page correctly'
+                            }
                         </h1>
                     </noscript>
                     <SectionContent>
