@@ -26,7 +26,7 @@ const ModeTranslation = {
     contrastb: 'Contrast B',
     no: 'NO',
     hvct: 'HVCT',
-    NOAAAPT: 'Reprocessed with NOAA-APT'
+    NOAAAPT: 'Reprocessed with NOAA-APT',
 };
 
 const DirectionTranslation = {
