@@ -67,16 +67,18 @@ const ImageList = DeconstructImageImports(
     importAll(
         require.context('../public/wx-captures/', false, /-thumb\.(jpe?g)$/)
     )
-).sort((a, b) => {
-    let ADate = new Date(a.Date)
-    ADate.setMinutes(a.Time.split(':')[1])
-    ADate.setHours(a.Time.split(':')[0])
-    let BDate = new Date(b.Date)
-    BDate.setMinutes(b.Time.split(':')[1])
-    BDate.setHours(b.Time.split(':')[0])
+)
+    .sort((a, b) => {
+        let ADate = new Date(a.Date);
+        ADate.setMinutes(a.Time.split(':')[1]);
+        ADate.setHours(a.Time.split(':')[0]);
+        let BDate = new Date(b.Date);
+        BDate.setMinutes(b.Time.split(':')[1]);
+        BDate.setHours(b.Time.split(':')[0]);
 
-    return ADate - BDate
-}).reverse()
+        return ADate - BDate;
+    })
+    .reverse();
 
 const ImageSections = [
     {
