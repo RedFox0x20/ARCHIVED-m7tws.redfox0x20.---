@@ -41,9 +41,7 @@ function DeconstructImageImports(Images) {
         return {
             Thumbnail: ThumbnailPath,
             FullImage: ThumbnailPath.replace('-thumb', ''),
-            Date: ThumbnailPath.substr(0, 10)
-                .replace('-', '/')
-                .replace('-', '/'),
+            Date: ThumbnailPath.substr(0, 10).split('-').reverse().join('-'),
             Time: ThumbnailPath.substr(11, 5).replace('-', ':'),
             Satellite: ThumbnailPath.substr(17, 7),
             Degree: ThumbnailPath.substr(25, 2),
@@ -69,9 +67,11 @@ const ImageList = DeconstructImageImports(
     importAll(
         require.context('../public/wx-captures/', false, /-thumb\.(jpe?g)$/)
     )
-)
-    .sort((ImgA, ImgB) => ImgA.Thumbnail - ImgB.Thumbnail)
-    .reverse();
+).sort((a, b) => {
+    let ADate = new Date(a.Date)
+    let BDate = new Date(b.Date)
+    return ADate - BDate
+}).reverse()
 
 const ImageSections = [
     {
