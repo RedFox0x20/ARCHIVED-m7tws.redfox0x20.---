@@ -37,7 +37,7 @@ const DirectionTranslation = {
 function DeconstructImageImports(Images) {
     return Images.map((item) => {
         const { src } = item.default;
-        const ThumbnailPath = `${src.split('/')[6].split('.')[0]}.jpg`;
+        const ThumbnailPath = `${src.split('/').pop().split('.')[0]}.jpg`;
         return {
             Thumbnail: ThumbnailPath,
             FullImage: ThumbnailPath.replace('-thumb', ''),
