@@ -16,26 +16,38 @@ function importAll(r) {
 
 function DeconstructImageImports(Images) {
     return Images.map((item) => {
-        const {src} = item.default;
+        const { src } = item.default;
         const path = `${src.split('/').pop().split('.')[0]}.png`;
         let YearFigure = path.split('_')[1];
-        YearFigure = `${YearFigure.slice(0, 4)}/${YearFigure.slice(4, 6)}/${YearFigure.slice(6, 8)}`;
+        YearFigure = `${YearFigure.slice(0, 4)}/${YearFigure.slice(
+            4,
+            6
+        )}/${YearFigure.slice(6, 8)}`;
         let TimeFigure = path.split('_')[2];
-        TimeFigure = `${TimeFigure.slice(0, 2)}:${TimeFigure.slice(2, 4)}:${TimeFigure.slice(4, 6)}`;
+        TimeFigure = `${TimeFigure.slice(0, 2)}:${TimeFigure.slice(
+            2,
+            4
+        )}:${TimeFigure.slice(4, 6)}`;
         const FrequencyFigure = `${path.split('_')[3]}`;
         return {
             src: src,
             Path: path,
             Date: YearFigure,
             Time: TimeFigure,
-            Frequency: FrequencyFigure
-        }
-    })
+            Frequency: FrequencyFigure,
+        };
+    });
 }
 
-const ImageList = DeconstructImageImports(importAll(
-    require.context('../public/wefax-captures/', false, /(max|apt|nocorr)\.png/)
-)).reverse();
+const ImageList = DeconstructImageImports(
+    importAll(
+        require.context(
+            '../public/wefax-captures/',
+            false,
+            /(max|apt|nocorr)\.png/
+        )
+    )
+).reverse();
 
 function WEFAX_List() {
     return (
@@ -43,7 +55,7 @@ function WEFAX_List() {
             <thead>
                 <tr>
                     <th>{'Date @ Time'}</th>
-                    <th className='hidden md:table-cell'>{'Frequency (Hz)'}</th>
+                    <th className="hidden md:table-cell">{'Frequency (Hz)'}</th>
                     <th />
                 </tr>
             </thead>
@@ -53,7 +65,9 @@ function WEFAX_List() {
                     return (
                         <tr key={idx.toString()}>
                             <td>{`${Img.Date} @ ${Img.Time}`}</td>
-                            <td className='hidden md:table-cell'>{Img.Frequency}</td>
+                            <td className="hidden md:table-cell">
+                                {Img.Frequency}
+                            </td>
                             <td>
                                 <a
                                     className="btn"
