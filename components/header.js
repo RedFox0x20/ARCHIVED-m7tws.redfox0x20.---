@@ -4,6 +4,7 @@ const NavbarLinks = [
     { text: 'Home', url: 'https://www.redfox0x20.xyz/' },
     { text: 'Amateur Radio', url: '/' },
     { text: 'NOAA Gallery', url: '/wx-captures' },
+    { text: 'WEFAX Gallery', url: '/wefax-captures' },
     // { text: 'SSTV Gallery', url: '/sstv-captures' }
 ];
 

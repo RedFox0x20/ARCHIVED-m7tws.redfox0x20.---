@@ -118,6 +118,12 @@ export default function Home() {
                                     {'Open NOAA Gallery'}
                                 </CardButton>
                             </ProjectCard>
+                            <ProjectCard altTxt="" imgSrc="">
+                                <CardTitle>{'WEFAX Gallery'}</CardTitle>
+                                <CardButton linkTo="/wefax-captures">
+                                    {'Open WEFAX Gallery'}
+                                </CardButton>
+                            </ProjectCard>
                             {/* <ProjectCard imgSrc='' altTxt=''>
                                 <CardTitle>SSTV image</CardTitle>
                                 <CardButton href='/sstv-captures'>Open SSTV Gallery</CardButton>
