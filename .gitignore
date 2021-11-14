@@ -8,6 +8,7 @@
 # testing
 /coverage
 /public/wx-captures/*
+/public/wefax/*
 
 # next.js
 /.next/
