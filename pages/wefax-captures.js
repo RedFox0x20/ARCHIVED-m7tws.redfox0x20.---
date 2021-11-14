@@ -44,7 +44,7 @@ const ImageList = DeconstructImageImports(
         require.context(
             '../public/wefax-captures/',
             false,
-            /(max|apt|nocorr)\.png/
+            /(max|apt|nocorr|ok)\.png/
         )
     )
 ).reverse();
