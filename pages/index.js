@@ -102,13 +102,8 @@ export default function Home() {
                 </ContentSection>
                 <div className="divider" />
                 <ContentSection>
-                    <SectionTitle>{'Image Gallery'}</SectionTitle>
+                    <SectionTitle>{'Image Galleries'}</SectionTitle>
                     <SectionContent>
-                        <SectionDescription>
-                            {
-                                "Here's a collection of images that I have received via NOAA APT Weather Satellites"
-                            }
-                        </SectionDescription>
                         <DynamicGrid>
                             <ProjectCard altTxt="" imgSrc="">
                                 <CardTitle>
