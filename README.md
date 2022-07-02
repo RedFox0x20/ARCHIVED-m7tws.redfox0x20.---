@@ -1,8 +1,13 @@
-# https://m7tws.redfox0x20.xyz/
+# Archived
+```
+This page has been archived, the URL is no-longer owned by me as I migrated to redfox0x20.uk.
+The source code exists purely to be used as reference material
+```
 
-Source repository for the [https://m7tws.RedFox0x20.xyz](https://m7tws.redfox0x20.xyz) webpage.
+# !!REDACTED!!
+Source repository for the !!REDACTED!! webpage.
 
-Featuring NOAA APT Satellite imagery! [https://m7tws.RedFox0x20.xyz/wx-captures](https://m7tws.redfox0x20.xyz/wx-captures)
+Featuring NOAA APT Satellite imagery! !!REDACTED!!
 
 ## Technologies
 - NodeJS
